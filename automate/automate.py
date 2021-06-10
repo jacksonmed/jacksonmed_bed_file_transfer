@@ -14,8 +14,10 @@ class automation:
     automation_loop = True
 
     def create_automation(self, filename):
-        input("Begin Automation. Press Enter to begin")
+        self.automation_loop = True
         self.start_keyboard_listen()
+
+        input("Begin Automation. Press Enter to begin")
         while self.automation_loop:
             print("Move cursor to desired position and click")
             self.start_mouse_listen()
@@ -23,10 +25,10 @@ class automation:
         self.automation_df.to_csv(filename, index=False)
 
     def complete_task(self, x, y, task):
-        time.sleep(1)
         if task == self.MOVE_TASK:
             self.mouse_controller.position = (x, y)
         elif task == self.CLICK_TASK:
+            time.sleep(1)
             self.mouse_controller.press(Button.left)
             self.mouse_controller.release(Button.left)
         elif task == self.KEYBOARD_TASK:
@@ -46,8 +48,11 @@ class automation:
         print("Task added Successfully")
 
     def automate(self, instruction_path):
-        instructions = pd.read_csv(instruction_path)
-        instructions.apply(lambda x: self.complete_task(x.x, x.y, x.task), axis=1)
+        self.automation_loop = True
+        self.start_keyboard_listen()
+        while self.automation_loop:
+            instructions = pd.read_csv(instruction_path)
+            instructions.apply(lambda x: self.complete_task(x.x, x.y, x.task), axis=1)
         return
 
     def on_move(self, x, y):
@@ -59,8 +64,9 @@ class automation:
         print('{0} at {1}'.format(
             'Pressed' if pressed else 'Released',
             (x, y)))
-        self.add_task(x, y, self.MOVE_TASK)
-        if not pressed:
+        if pressed:
+            self.add_task(x, y, self.MOVE_TASK)
+        else:
             self.add_task(x, y, self.CLICK_TASK)
             return False
 
@@ -79,15 +85,15 @@ class automation:
 
     def on_press(self, key):
         try:
-            print('alphanumeric key {0} pressed'.format(
+            print('alphanumeric key {0} pressed\n'.format(
                 key.char))
         except AttributeError:
-            print('special key {0} pressed'.format(
+            print('special key {0} pressed\n'.format(
                 key))
 
     def on_release(self, key):
         global automation_loop
-        print('{0} released'.format(
+        print('{0} released\n'.format(
             key))
         if key == keyboard.Key.esc:
             self.automation_loop = False
