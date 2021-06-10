@@ -1,0 +1,14 @@
+HOST:
+  SOURCE_PATH: /home/jacksonmed/Documents/demo.txt
+RASPBERRY_PI:
+  IP: 192.168.1.65
+  PORT: 22
+  USER: pi
+  PASSWORD: raspberry
+  DESTINATION_PATH: /home/pi/Desktop/
+AUTOMATIONS:
+  DESTINATION_PATH: automations/test.csv
+
+
+
+
