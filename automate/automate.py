@@ -28,7 +28,7 @@ class automation:
         if task == self.MOVE_TASK:
             self.mouse_controller.position = (x, y)
         elif task == self.CLICK_TASK:
-            time.sleep(1)
+            time.sleep(1.5)
             self.mouse_controller.press(Button.left)
             self.mouse_controller.release(Button.left)
         elif task == self.KEYBOARD_TASK:
