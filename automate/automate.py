@@ -2,6 +2,12 @@ from pynput import mouse, keyboard
 from pynput.mouse import Button, Controller
 import pandas as pd
 import time
+import yaml
+
+stream = open("config.yaml", 'r')
+configuration = yaml.load(stream)
+
+
 
 
 class automation:
@@ -12,6 +18,9 @@ class automation:
     automation_cols = ['x', 'y', 'task']
     automation_df = pd.DataFrame(columns=automation_cols)
     automation_loop = True
+
+    def __init__(self, file_transfer):
+        self.file_transfer = file_transfer
 
     def create_automation(self, filename):
         self.automation_loop = True
@@ -48,12 +57,15 @@ class automation:
         print("Task added Successfully")
 
     def automate(self, instruction_path):
+
         self.automation_loop = True
         self.start_keyboard_listen()
         while self.automation_loop:
             instructions = pd.read_csv(instruction_path)
             instructions.apply(lambda x: self.complete_task(x.x, x.y, x.task), axis=1)
+            self.file_transfer.scp_put()
         return
+
 
     def on_move(self, x, y):
         # print('Pointer moved to {0}'.format(

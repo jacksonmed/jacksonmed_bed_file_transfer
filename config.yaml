@@ -1,5 +1,5 @@
 HOST:
-  SOURCE_PATH: /home/jacksonmed/Documents/demo.txt
+  SOURCE_PATH: C:\Users\flico\Documents\sensor_data\Session.6.11.2021.txt
 RASPBERRY_PI:
   IP: 192.168.1.65
   PORT: 22

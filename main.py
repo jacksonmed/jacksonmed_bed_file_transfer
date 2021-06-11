@@ -12,12 +12,18 @@ file = configuration['HOST']['SOURCE_PATH']
 user = configuration['RASPBERRY_PI']['USER']
 password = configuration['RASPBERRY_PI']['PASSWORD']
 
+file_transfer = file_transfer.Transfer(server=server,
+                                       port=port,
+                                       file_path=file,
+                                       user=user,
+                                       password=password)
 
 if __name__ == "__main__":
     temp = True
-    print("Select the following operation:")
-    automation = automate.automation()
 
+    automation = automate.automation(file_transfer=file_transfer)
+
+    print("Select the following operation:")
     while temp:
         print("1: Record Automation\n"
               "2: Run Automation Loop\n"
@@ -31,11 +37,6 @@ if __name__ == "__main__":
             automation.automate(
                 instruction_path=configuration['AUTOMATIONS']['DESTINATION_PATH'])
         elif user_input == 3:
-            file_transfer = file_transfer.Transfer(server=server,
-                                                   port=port,
-                                                   file_path=file,
-                                                   user=user,
-                                                   password=password)
             file_transfer.scp_put()
         elif user_input == 4:
             exit(0)
@@ -47,17 +48,3 @@ if __name__ == "__main__":
     # print("Beginning Playback in 3 sec...")
     # time.sleep(3)
     # automation.automate('automations/test.csv')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
