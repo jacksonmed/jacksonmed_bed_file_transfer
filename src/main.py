@@ -1,9 +1,8 @@
-from automate import automate
-from file import file_transfer
-import time
+from src.automate import automate
+from src.file import file_transfer
 import yaml
 
-stream = open("config.yaml", 'r')
+stream = open("../config.yaml", 'r')
 configuration = yaml.load(stream)
 
 server = configuration['RASPBERRY_PI']['IP']
@@ -42,9 +41,3 @@ if __name__ == "__main__":
             exit(0)
         else:
             print("Invalid choice. Please choose again")
-
-    # automation = automate.automation()
-    # automation.create_automation('automations/test.csv')
-    # print("Beginning Playback in 3 sec...")
-    # time.sleep(3)
-    # automation.automate('automations/test.csv')

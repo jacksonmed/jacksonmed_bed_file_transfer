@@ -1,5 +1,4 @@
 import paramiko
-import scp
 from scp import SCPClient
 import yaml
 
