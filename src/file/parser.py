@@ -3,12 +3,14 @@ import pandas as pd
 from datetime import datetime
 import ast
 
-path = "../tests/test_files/temp.txt"
-save_path = "../tests/test_files/test_df_correct.csv"
-# save_path = "../../transfer_data/temp.txt"
-expression = "FRAME\s\d*\(psi\)\n"
-d = {}
+
+# path = "../tests/test_files/temp.txt"
+# save_path = "../tests/test_files/test_df_correct.csv"
+# # save_path = "../../transfer_data/temp.txt"
+
+
 def get_latest_frame(path):
+    expression = "FRAME\s\d*\(psi\)\n"
 
     with open(path) as f:
         lines = f.read()
@@ -26,11 +28,12 @@ def get_latest_frame(path):
         date_time = datetime.now()
 
         final_df = pd.DataFrame.from_dict({date_time: [data]}, orient='index', columns=['data'])
-        save_df_csv(final_df)
     return final_df
 
-def save_df_csv(df):
-    df.to_csv(save_path)
+
+def save_df_csv(df, path):
+    df.to_csv(path)
+
 
 def extract_sensor_dataframe(df):
     data = df["data"].iloc[0]
@@ -38,5 +41,3 @@ def extract_sensor_dataframe(df):
         data = ast.literal_eval(data)
     df = pd.DataFrame(data)
     return df
-
-

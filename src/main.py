@@ -1,26 +1,27 @@
 from src.automate import automate
 from src.file import file_transfer
 import yaml
+import os
 
-stream = open("../config.yaml", 'r')
+file = os.path.abspath("../config.yaml")
+stream = open(file, 'r')
 configuration = yaml.load(stream)
 
 server = configuration['RASPBERRY_PI']['IP']
 port = configuration['RASPBERRY_PI']['PORT']
-file = configuration['HOST']['SOURCE_PATH']
+file = os.path.abspath("../transfer_data/data.csv")
 user = configuration['RASPBERRY_PI']['USER']
-password = configuration['RASPBERRY_PI']['PASSWORD']
-
-file_transfer = file_transfer.Transfer(server=server,
-                                       port=port,
-                                       file_path=file,
-                                       user=user,
-                                       password=password)
+password = str(configuration['RASPBERRY_PI']['PASSWORD'])
 
 if __name__ == "__main__":
     temp = True
+    file_transfer = file_transfer.Transfer(server=server,
+                                           port=port,
+                                           file_path=file,
+                                           user=user,
+                                           password=password)
 
-    automation = automate.automation(file_transfer=file_transfer)
+    automation = automate.Automation(file_transfer=file_transfer)
 
     print("Select the following operation:")
     while temp:
@@ -30,11 +31,9 @@ if __name__ == "__main__":
               "4: Exit\n\n")
         user_input = int(input())
         if user_input == 1:
-            automation.create_automation(
-                configuration['AUTOMATIONS']['DESTINATION_PATH'])
+            automation.create_automation()
         elif user_input == 2:
-            automation.automate(
-                instruction_path=configuration['AUTOMATIONS']['DESTINATION_PATH'])
+            automation.automate()
         elif user_input == 3:
             file_transfer.scp_put()
         elif user_input == 4:

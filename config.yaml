@@ -1,11 +1,12 @@
 HOST:
-  SOURCE_PATH: C:\Users\flico\Documents\sensor_data\Session.6.11.2021.txt
+  SOURCE_PATH: C:\Users\dev\Documents\sensor_data\data.txt
+  SAVE_PATH: ../../transfer_data/data.csv
 RASPBERRY_PI:
-  IP: 192.168.1.65
+  IP: 192.168.86.32
   PORT: 22
   USER: pi
-  PASSWORD: raspberry
-  DESTINATION_PATH: /home/pi/Desktop/
+  PASSWORD: 1155
+  DESTINATION_PATH: /home/pi/Desktop/sensor_data
 AUTOMATIONS:
   DESTINATION_PATH: automations/test.csv
 

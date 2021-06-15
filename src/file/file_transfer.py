@@ -1,8 +1,10 @@
 import paramiko
 from scp import SCPClient
 import yaml
+import os
 
-stream = open("config.yaml", 'r')
+file = os.path.abspath("../config.yaml")
+stream = open(file, 'r')
 configuration = yaml.load(stream)
 
 
