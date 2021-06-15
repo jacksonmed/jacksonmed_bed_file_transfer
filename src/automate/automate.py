@@ -57,14 +57,16 @@ class Automation:
         if task == self.MOVE_TASK:
             self.mouse_controller.position = (x, y)
         elif task == self.CLICK_TASK:
-            time.sleep(1.5)
+            time.sleep(1)
             self.mouse_controller.press(Button.left)
             self.mouse_controller.release(Button.left)
         elif task == self.KEYBOARD_TASK:
             self.keyboard_controller.press(x)
             self.keyboard_controller.release(x)
             if x == keyboard.Key.enter:
-                time.sleep(1.5)
+                time.sleep(0.5)
+            else:
+                time.sleep(0.2)
             return
         else:
             print('Invalid instruction: ' + task)
